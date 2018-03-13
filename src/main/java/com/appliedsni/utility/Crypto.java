@@ -1,8 +1,4 @@
-/* ====================================== */
-/* Copyright (c) 2012 Unisys Corporation. */
-/*          All rights reserved.          */
-/*          UNISYS CONFIDENTIAL           */
-/* ====================================== */
+
 package com.appliedsni.utility;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -19,7 +15,7 @@ public final class Crypto {
 		
 	}	
 
-    private static final String INITVECTOR = "UnisysLMSNGCargo";
+    private static final String INITVECTOR = "GauriShankar";
     
     private static final String UTF_WORD= ("UTF-8");
 
@@ -27,7 +23,7 @@ public final class Crypto {
         try {
             SecretKeySpec skeySpec = null;
             {
-                String key = "829629-" +"gauri" + "-654173";
+                String key = "8299-" +"gauri" + "-65417";
                 skeySpec = new SecretKeySpec(key.getBytes(UTF_WORD), "AES");
 
             }
@@ -50,7 +46,7 @@ public final class Crypto {
         try {
             SecretKeySpec skeySpec = null;
             {
-                String key = "829629-" +"gauri" + "-654173";
+                String key = "8299-" +"gauri" + "-65417";
                 skeySpec = new SecretKeySpec(key.getBytes(UTF_WORD), "AES");
             }
             IvParameterSpec iv = new IvParameterSpec(INITVECTOR.getBytes(UTF_WORD));

@@ -14,10 +14,10 @@ import javax.persistence.Table;
 @Table(name = "XUSERSESSION")
 public class UserSession extends PersistenceObject{
 	@Id
-    @Column(name = "XOID", columnDefinition = "XNUMBER(38)", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "XOID", columnDefinition = "NUMBER(38)", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	@Column(name = "XTOKEN", length = 1000, nullable = true)
+	@Column(name = "XTOKEN", length = 1000, nullable = false)
 	private String token;
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "XUSER_OID", referencedColumnName = "XOID", nullable = false)

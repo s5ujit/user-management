@@ -2,6 +2,8 @@ package com.appliedsni.services.user;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -44,6 +46,7 @@ public class UserServiceImpl implements UserService {
 		}
 		return userLoginResponse;
 	}
+	@Transactional
 	public UserLoginResponse createUser(UserLoginRequest pUserLoginRequest) throws Exception
 	{
 		User aUser=userAssembler.assembleUser(pUserLoginRequest.getUserDto());

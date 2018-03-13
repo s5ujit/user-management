@@ -26,10 +26,10 @@ public abstract class PersistenceObject  {
      * Attribute to hold the <code>version</code> property.
      */
     @Version
-    @Column(name = "VERSION", columnDefinition = "NUMBER(10)", nullable = false)
+    @Column(name = "XVERSION", columnDefinition = "NUMBER(10)", nullable = false)
     private long version;
 
-    @Column(name = "lastUpdate",  columnDefinition = "DATE" ,nullable = false)
+    @Column(name = "XLASTUPDATE",  columnDefinition = "DATE" ,nullable = false)
     private Date lastUpdate;
     /**
      * Default constructor.

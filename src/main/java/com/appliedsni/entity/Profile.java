@@ -24,8 +24,8 @@ public class Profile extends PersistenceObject {
     private static final long serialVersionUID = 3539102181989695535L;
 
     @Id
-    @Column(name = "XOID", columnDefinition = "XNUMBER(38)", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "XOID", columnDefinition = "NUMBER(38)", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @Enumerated(EnumType.STRING)

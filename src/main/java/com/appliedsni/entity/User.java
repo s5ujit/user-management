@@ -17,19 +17,16 @@ import javax.persistence.NamedQuery;
 
 import com.appliedsni.entity.PersistenceObject;
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "User.findUserByUserId", query = "SELECT User "
-                + "FROM User user " + "WHERE emailAddress = :emailAddress")})
 @Table(name = "XUSER")
 public class User extends PersistenceObject {
     private static final long serialVersionUID = -1679970109556600138L;
 
     @Id
-    @Column(name = "XOID", columnDefinition = "XNUMBER(38)", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "XOID", columnDefinition = "NUMBER(38)", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "XEMAILADDRESS", length = 200, nullable = true)
+    @Column(name = "XEMAILADDRESS", length = 200, nullable = false)
     private String emailAddress;
     
     @Column(name = "XFAILLOGINATTEMPTS", length = 1, nullable = true)
@@ -38,10 +35,10 @@ public class User extends PersistenceObject {
     @Column(name = "XFIRSTNAME", length = 40, nullable = true)
     private String firstName;
 
-    @Column(name = "XLASTNAME", length = 40, nullable = false)
+    @Column(name = "XLASTNAME", length = 40, nullable = true)
     private String lastName;
     
-    @Column(name = "XLOCKUSERINDICATOR", length = 1, nullable = false)
+    @Column(name = "XLOCKUSERINDICATOR", length = 1, nullable = true)
     private boolean lockUserIndicator;
 
     @Column(name = "XNUMBEROFLOGINS", length = 7, nullable = true)
@@ -52,10 +49,10 @@ public class User extends PersistenceObject {
     private String passwordHash;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "XPROFILE_OID", referencedColumnName = "XOID", nullable = false)
+    @JoinColumn(name = "XPROFILE_OID", referencedColumnName = "XOID", nullable = true)
     private Profile profile;
     
-    @Column(name = "XMOBILENUMBER", length = 12, nullable = false)
+    @Column(name = "XMOBILENUMBER", length = 12, nullable = true)
     private String mobileNumber;
 
     public User() {

@@ -1,33 +1,6 @@
 package com.appliedsni.constants;
 
-/**
- * <code>UserLoginStatusType</code> holds the constants related to user login.
- * 
- * <p>
- * Following are the possible account types:<br>
- * <ul>
- * <li>1 - USER_CHANGE_STATION_SUCCESS
- * <li>2 - USER_LOGIN_CREDENTIALS_INCORRECT
- * <li>3 - USER_LOGIN_INVALID_CARRIER
- * <li>4 - USER_LOGIN_INVALID_PASSWORD
- * <li>5 - USER_LOGIN_OFFICE_INVALID
- * <li>6 - USER_LOGIN_OFFICE_NOT_ALPHANUMERIC
- * <li>7 - USER_LOGIN_PASSWORD_EXPIRED
- * <li>8 - USER_LOGIN_PASSWORD_MANDATORY
- * <li>9 - USER_LOGIN_PASSWORD_NOT_ALPHANUMERIC
- * <li>10 - USER_LOGIN_PASSWORD_NOT_EMPTY
- * <li>11 - USER_LOGIN_STATION_INVALID
- * <li>12 - USER_LOGIN_STATION_NOT_ALPHANUMERIC
- * <li>13 - USER_LOGIN_USER_ID_LOCKED
- * <li>14 - USER_LOGIN_USER_ID_MANDATORY
- * <li>15 - USER_LOGIN_USER_ID_NOT_FOUND
- * <li>16 - USER_LOGIN_USERID_NOT_APLHANUMERIC
- * <li>17 - USER_SESSION_EXPIRED
- * <li>18 - USER_SSO_NOT_ENABLED
- * <li>19 - USER_SSO_ENABLED
- * <li>20 - WINDOWS_ID_NOT_DETECTED
- * </ul>
- */
+
 
 public enum UserLoginStatusType {
 
