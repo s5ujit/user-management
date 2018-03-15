@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 
 import com.appliedsni.entity.PersistenceObject;
 @Entity
@@ -23,7 +24,8 @@ public class User extends PersistenceObject {
 
     @Id
     @Column(name = "XOID", columnDefinition = "NUMBER(38)", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
+	@SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
     private Long id;
     
     @Column(name = "XEMAILADDRESS", length = 200, nullable = false)
@@ -49,7 +51,7 @@ public class User extends PersistenceObject {
     private String passwordHash;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "XPROFILE_OID", referencedColumnName = "XOID", nullable = true)
+    @JoinColumn(name = "XPROFILE_OID", referencedColumnName = "XOID", nullable = false)
     private Profile profile;
     
     @Column(name = "XMOBILENUMBER", length = 12, nullable = true)

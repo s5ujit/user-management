@@ -2,14 +2,14 @@ package com.appliedsni.security.jwtsecurity.model;
 
 public class JwtUser {
     private String userName;
-    private long id;
+    private String id;
     private String role;
 
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -21,7 +21,7 @@ public class JwtUser {
         return userName;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.appliedsni.assembler.UserAssembler;
+import com.appliedsni.dao.ProfileDao;
 import com.appliedsni.dao.UserDao;
 import com.appliedsni.dto.UserDto;
 import com.appliedsni.dto.UserLoginRequest;
@@ -24,7 +25,10 @@ public class UserServiceImpl implements UserService {
 	com.appliedsni.security.jwtsecurity.security.JwtGenerator jwtGenerator;
 	@Autowired
 	UserAssembler userAssembler;
+	@Autowired
+	ProfileDao profileDao;
 	@Override
+	@Transactional
 	public UserLoginResponse loginUser(UserLoginRequest pUserLoginRequest) throws Exception {
 		// TODO Auto-generated method stub
 		UserLoginResponse userLoginResponse = new UserLoginResponse();
@@ -51,6 +55,7 @@ public class UserServiceImpl implements UserService {
 	{
 		User aUser=userAssembler.assembleUser(pUserLoginRequest.getUserDto());
 		aUser.setPasswordHash(Crypto.encrypt(aUser.getPasswordHash()));
+		aUser.setProfile(this.profileDao.findByProfileId(pUserLoginRequest.getUserDto().getProfile().getRole()));
 		userDao.create(aUser);
 		UserLoginResponse userLoginResponse = new UserLoginResponse();
 		userLoginResponse.setStatus("User Created");

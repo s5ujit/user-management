@@ -30,7 +30,7 @@ public class JwtValidator {
             jwtUser = new JwtUser();
 
             jwtUser.setUserName(body.getSubject());
-            jwtUser.setId(Long.parseLong((String) body.get("userId")));
+            jwtUser.setId((String)body.get("userId"));
             jwtUser.setRole((String) body.get("role"));
         }
         catch (UnsupportedJwtException | MalformedJwtException | IllegalArgumentException | SignatureException ex) {

@@ -29,7 +29,7 @@ public abstract class PersistenceObject  {
     @Column(name = "XVERSION", columnDefinition = "NUMBER(10)", nullable = false)
     private long version;
 
-    @Column(name = "XLASTUPDATE",  columnDefinition = "DATE" ,nullable = false)
+    @Column(name = "XLASTUPDATE", columnDefinition = "date default sysdate",nullable = true)
     private Date lastUpdate;
     /**
      * Default constructor.
@@ -93,6 +93,8 @@ public abstract class PersistenceObject  {
     }
 
 	public Date getLastUpdate() {
+		if(this.lastUpdate==null)
+			this.lastUpdate=new Date();
 		return lastUpdate;
 	}
 
