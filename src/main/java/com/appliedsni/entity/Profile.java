@@ -1,5 +1,6 @@
 package com.appliedsni.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -21,7 +22,7 @@ import com.appliedsni.constants.Role;
 import com.appliedsni.entity.PersistenceObject;
 @Entity
 @Table(name = "XPROFILE")
-public class Profile extends PersistenceObject {
+public class Profile extends PersistenceObject implements Serializable{
     private static final long serialVersionUID = 3539102181989695535L;
 
     @Id
@@ -39,7 +40,7 @@ public class Profile extends PersistenceObject {
     
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "XPROFILE_OID", referencedColumnName = "XOID")
-    private List<User> users;
+    private transient List<User> users;
  
 
     public Profile() {
@@ -77,5 +78,8 @@ public class Profile extends PersistenceObject {
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
+	 public String toString() {
+	        return role.toString();
+	    }
     
 }

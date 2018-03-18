@@ -2,18 +2,17 @@ package com.appliedsni.services.user;
 
 import java.util.List;
 
+
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import com.appliedsni.assembler.UserAssembler;
 import com.appliedsni.dao.ProfileDao;
+import com.appliedsni.dao.TokenDao;
 import com.appliedsni.dao.UserDao;
-import com.appliedsni.dto.UserDto;
-import com.appliedsni.dto.UserLoginRequest;
-import com.appliedsni.dto.UserLoginResponse;
 import com.appliedsni.entity.User;
 import com.appliedsni.entity.UserSession;
 import com.appliedsni.utility.Crypto;
@@ -24,42 +23,55 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	com.appliedsni.security.jwtsecurity.security.JwtGenerator jwtGenerator;
 	@Autowired
-	UserAssembler userAssembler;
-	@Autowired
 	ProfileDao profileDao;
+	@Autowired
+	TokenDao tokenDao;
 	@Override
 	@Transactional
-	public UserLoginResponse loginUser(UserLoginRequest pUserLoginRequest) throws Exception {
+	public User loginUser(User pUser,HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		UserLoginResponse userLoginResponse = new UserLoginResponse();
-		List<User> user = userDao.findUserByEmail(pUserLoginRequest.getUserDto().getEmailAddress());
+		List<User> user = userDao.findUserByEmail(pUser.getEmailAddress());
 		User aUser = null;
 		if (!CollectionUtils.isEmpty(user))
 			aUser = user.get(0);
 		final String pHasedPassword = Crypto.decrypt(aUser.getPasswordHash());
-		if (!pHasedPassword.equals(pUserLoginRequest.getUserDto().getPasswordHash())) {
-			userLoginResponse.setStatus("Fail");
-			return userLoginResponse;
+		if (!pHasedPassword.equals(pUser.getPasswordHash())) {
+			throw new RuntimeException("");
 		} else {
-			userLoginResponse.setStatus("Success");
-			UserDto aUserDto = userAssembler.assembleUserDto(aUser);
-			userLoginResponse.setUserDto(aUserDto);
-			userLoginResponse.getRequestHeader().setToken(jwtGenerator.generate(aUserDto));
-			UserSession userSession=new UserSession(aUser,userLoginResponse.getRequestHeader().getToken());
+			
+			String token=jwtGenerator.generate(user.get(0));
+			response.setHeader("Authorisation", token);
+			UserSession userSession=new UserSession(token,aUser.getEmailAddress());
 			userDao.create(userSession);
 		}
-		return userLoginResponse;
+		return aUser;
 	}
 	@Transactional
-	public UserLoginResponse createUser(UserLoginRequest pUserLoginRequest) throws Exception
+	public User createUser(User pUser) throws Exception
 	{
-		User aUser=userAssembler.assembleUser(pUserLoginRequest.getUserDto());
-		aUser.setPasswordHash(Crypto.encrypt(aUser.getPasswordHash()));
-		aUser.setProfile(this.profileDao.findByProfileId(pUserLoginRequest.getUserDto().getProfile().getRole()));
-		userDao.create(aUser);
-		UserLoginResponse userLoginResponse = new UserLoginResponse();
-		userLoginResponse.setStatus("User Created");
-		return userLoginResponse;
+		pUser.setPasswordHash(Crypto.encrypt(pUser.getPasswordHash()));
+		pUser.setProfile(this.profileDao.findByProfileId(pUser.getProfile().getRole()));
+		userDao.create(pUser);
+		return pUser;
+	}
+	
+	public void isVlaidSession(String pUserId,String pToken) throws Exception{
+		
+		Long count=tokenDao.isTokenValid(pUserId, pToken);
+		if(count<1)
+		{
+			throw new RuntimeException("Invalid session");
+		}
+	}
+	@Override
+	public void deleteSession(String pUserId, String pToken) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void logout(User pUserLoginRequest) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

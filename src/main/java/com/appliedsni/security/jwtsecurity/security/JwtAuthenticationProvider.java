@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import com.appliedsni.security.jwtsecurity.model.JwtAuthenticationToken;
 import com.appliedsni.security.jwtsecurity.model.JwtUser;
 import com.appliedsni.security.jwtsecurity.model.JwtUserDetails;
+import com.appliedsni.services.user.UserService;
 
 import java.util.List;
 
@@ -20,6 +21,8 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
     @Autowired
     private JwtValidator validator;
+    @Autowired
+    private UserService userService;
 
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
@@ -35,6 +38,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
         JwtUser jwtUser=null;
 		try {
 			jwtUser = validator.validate(token);
+			userService.isVlaidSession(jwtUser.getUserName(), token);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

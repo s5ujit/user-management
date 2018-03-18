@@ -1,5 +1,7 @@
 package com.appliedsni.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 @Entity
 @Table(name = "XUSERSESSION")
-public class UserSession extends PersistenceObject{
+public class UserSession extends PersistenceObject implements Serializable{
 	@Id
     @Column(name = "XOID", columnDefinition = "NUMBER(38)", nullable = false)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
@@ -21,9 +23,8 @@ public class UserSession extends PersistenceObject{
     private Long id;
 	@Column(name = "XTOKEN", length = 1000, nullable = false)
 	private String token;
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "XUSER_OID", referencedColumnName = "XOID", nullable = false)
-	private User user;
+	@Column(name = "USERID", length = 100, nullable = false)
+	private String userId;
 	public Long getId() {
 		return id;
 	}
@@ -31,15 +32,17 @@ public class UserSession extends PersistenceObject{
 	public String getToken() {
 		return token;
 	}
-	
-	public User getUser() {
-		return user;
+
+	public String getUserId() {
+		return userId;
 	}
-	public UserSession(User user,String token)
-	{
-		this.user=user;
+	public UserSession(String token,String userId){
 		this.token=token;
+		this.userId=userId;
+		
 	}
+	public UserSession()
+	{}
 	
 	
 

@@ -28,4 +28,7 @@ public class JwtUser {
     public String getRole() {
         return role;
     }
+    public String toString() {
+        return role;
+    }
 }

@@ -1,6 +1,8 @@
 package com.appliedsni.entity;
 
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 
 import javax.persistence.Column;
@@ -19,7 +21,7 @@ import javax.persistence.SequenceGenerator;
 import com.appliedsni.entity.PersistenceObject;
 @Entity
 @Table(name = "XUSER")
-public class User extends PersistenceObject {
+public class User extends PersistenceObject implements Serializable{
     private static final long serialVersionUID = -1679970109556600138L;
 
     @Id
@@ -40,8 +42,8 @@ public class User extends PersistenceObject {
     @Column(name = "XLASTNAME", length = 40, nullable = true)
     private String lastName;
     
-    @Column(name = "XLOCKUSERINDICATOR", length = 1, nullable = true)
-    private boolean lockUserIndicator;
+    @Column(name = "XLOCKUSERINDICATOR", length = 1, nullable = false)
+    private boolean lockUserIndicator=true;
 
     @Column(name = "XNUMBEROFLOGINS", length = 7, nullable = true)
     private int numberOfLogins;
@@ -50,7 +52,7 @@ public class User extends PersistenceObject {
     @Column(name = "XPASSWORDHASH", length = 40, nullable = true)
     private String passwordHash;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "XPROFILE_OID", referencedColumnName = "XOID", nullable = false)
     private Profile profile;
     

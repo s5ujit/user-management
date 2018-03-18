@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.appliedsni.dao.BaseJpaDaoImpl;
+import com.appliedsni.entity.AccessRight;
 import com.appliedsni.entity.User;
 import com.appliedsni.exception.DaoException;
 import javax.persistence.Query;
@@ -27,5 +28,12 @@ public class UserDaoImpl extends BaseJpaDaoImpl implements UserDao{
 			final Query aquery =super.createQuery("select user from User user where user.emailAddress = :emailAddress", map);
 			return aquery.getResultList();
 		}
+		
+		public List<AccessRight> getAccessRight() {
+			// TODO Auto-generated method stub
+			final Query aquery =super.createQuery("select accessRight from AccessRight accessRight",null);
+			return aquery.getResultList();
+		}
+		
 
 }

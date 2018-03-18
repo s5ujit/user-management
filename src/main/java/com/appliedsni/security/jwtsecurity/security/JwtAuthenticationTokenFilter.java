@@ -5,6 +5,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
 import com.appliedsni.security.jwtsecurity.model.JwtAuthenticationToken;
+import com.appliedsni.security.jwtsecurity.model.JwtUserDetails;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -30,6 +31,7 @@ public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessi
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         super.successfulAuthentication(request, response, chain, authResult);
+        JwtUserDetails asdsa=(JwtUserDetails)authResult.getAuthorities();
         chain.doFilter(request, response);
     }
 }

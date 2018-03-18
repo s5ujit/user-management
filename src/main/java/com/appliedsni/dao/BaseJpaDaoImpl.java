@@ -81,7 +81,10 @@ public abstract class BaseJpaDaoImpl  implements BaseJpaDao {
         Query aQuery = null;
 
         aQuery = this.getEntityManager().createQuery(pJpaQuery);
+        if(pBindParameters!=null)
         return this.buildQuery(aQuery, pBindParameters);
+        else 
+        	return aQuery;
     }
 
     @Override
@@ -97,7 +100,13 @@ public abstract class BaseJpaDaoImpl  implements BaseJpaDao {
         }
 
     }
+    public Query createCachedQuery(final String pQuery) {
 
+        Query aQuery = null;
+        aQuery = this.getEntityManager().createNamedQuery(pQuery);
+        aQuery.setHint(HIBERNATE_CACHE_ENABLE, true);
+        return aQuery;
+    }
     @Override
     public final <T extends PersistenceObject> T findbyPK(final T pObject)
                 throws DaoException {

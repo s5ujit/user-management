@@ -1,5 +1,6 @@
 
 package com.appliedsni.entity;
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,7 +10,7 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 
 @MappedSuperclass
-public abstract class PersistenceObject  {
+public abstract class PersistenceObject  implements Serializable{
 
     /**
      * Serial Id Version.
