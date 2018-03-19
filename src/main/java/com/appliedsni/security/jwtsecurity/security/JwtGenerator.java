@@ -22,7 +22,7 @@ public class JwtGenerator {
         Claims claims = Jwts.claims()
                 .setSubject(pUserDto.getEmailAddress());
         claims.put("userId", String.valueOf(pUserDto.getEmailAddress()));
-        claims.put("role", pUserDto.getProfile());
+        claims.put("role", pUserDto.getProfile().toString());
         LocalDateTime currentTime = LocalDateTime.now();
         String token = Jwts.builder()
           .setClaims(claims)
