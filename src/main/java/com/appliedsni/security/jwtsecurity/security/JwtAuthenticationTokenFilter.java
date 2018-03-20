@@ -2,11 +2,10 @@ package com.appliedsni.security.jwtsecurity.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
-
 import com.appliedsni.security.jwtsecurity.model.JwtAuthenticationToken;
-import com.appliedsni.security.jwtsecurity.model.JwtUserDetails;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +30,9 @@ public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessi
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         super.successfulAuthentication(request, response, chain, authResult);
-        JwtUserDetails asdsa=(JwtUserDetails)authResult.getAuthorities();
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authResult);
+        SecurityContextHolder.setContext(context);
         chain.doFilter(request, response);
     }
 }

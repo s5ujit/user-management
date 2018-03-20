@@ -79,7 +79,7 @@ public class Profile extends PersistenceObject implements Serializable{
 		this.users = users;
 	}
 	 public String toString() {
-	        return role.toString();
+	        return role.name();
 	    }
     
 }

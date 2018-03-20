@@ -1,6 +1,7 @@
 package com.appliedsni.security.jwtsecurity.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.appliedsni.security.jwtsecurity.security.AccessRightFilter;
 import com.appliedsni.security.jwtsecurity.security.JwtAuthenticationEntryPoint;
 import com.appliedsni.security.jwtsecurity.security.JwtAuthenticationProvider;
 import com.appliedsni.security.jwtsecurity.security.JwtAuthenticationTokenFilter;
@@ -43,6 +45,13 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
         return filter;
     }
 
+    @Bean
+    public FilterRegistrationBean accessRightFilter() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(new AccessRightFilter());
+        registration.addUrlPatterns("/rest/secure/*");
+        return registration;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
