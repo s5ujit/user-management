@@ -166,14 +166,14 @@ implements UrlMatcher
 	}
 	
 	/**
-	 * Test the given URL against the underlying pattern to determine if it matches, returning a boolean
+	 * Test the given URL against the underlying pattern to determine if it matches, returning a Boolean
 	 * to reflect the outcome.
 	 * 
 	 * @param url an URL string with or without query string.
 	 * @return true if the given URL matches the underlying pattern.  Otherwise false.
 	 */
 	@Override
-    public boolean matches(String url)
+    public Boolean matches(String url)
 	{
 		return (match(url) != null);
 	}

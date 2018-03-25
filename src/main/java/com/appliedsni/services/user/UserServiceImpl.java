@@ -30,21 +30,31 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public User loginUser(User pUser,HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		List<User> user = userDao.findUserByEmail(pUser.getEmailAddress());
-		User aUser = null;
-		if (!CollectionUtils.isEmpty(user))
-			aUser = user.get(0);
+		User aUser = findUserByEmailId(pUser.getEmailAddress());
+		
 		final String pHasedPassword = Crypto.decrypt(aUser.getPasswordHash());
 		if (!pHasedPassword.equals(pUser.getPasswordHash())) {
 			throw new RuntimeException("");
 		} else {
 			
-			String token=jwtGenerator.generate(user.get(0));
+			String token=jwtGenerator.generate(aUser);
 			response.setHeader("Authorisation", token);
 			UserSession userSession=new UserSession(token,aUser.getEmailAddress());
 			userDao.create(userSession);
 		}
+		aUser.setCompany(null);
 		return aUser;
+	}
+	public User findUserByEmailId(String pEmailId)
+	{
+		List<User> user = userDao.findUserByEmail(pEmailId);
+		User aUser = null;
+		if (!CollectionUtils.isEmpty(user))
+			aUser = user.get(0);
+		if(aUser==null)
+			throw new RuntimeException("User not esxit");
+		return aUser;
+		
 	}
 	@Transactional
 	public User createUser(User pUser) throws Exception
@@ -65,13 +75,19 @@ public class UserServiceImpl implements UserService {
 	}
 	@Override
 	public void deleteSession(String pUserId, String pToken) throws Exception {
-		// TODO Auto-generated method stub
+		tokenDao.deleteToken(pUserId, pToken);
 		
 	}
 	@Override
 	public void logout(User pUserLoginRequest) throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public List<User> findUsers()
+	{
+		List<User> userList=userDao.findUserList();
+		return userList;
 	}
 
 }

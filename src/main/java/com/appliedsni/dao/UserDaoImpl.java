@@ -20,6 +20,7 @@ public class UserDaoImpl extends BaseJpaDaoImpl implements UserDao{
 			return null;
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public List<User> findUserByEmail(final String pEmail) {
 			// TODO Auto-generated method stub
@@ -28,10 +29,18 @@ public class UserDaoImpl extends BaseJpaDaoImpl implements UserDao{
 			final Query aquery =super.createQuery("select user from User user where user.emailAddress = :emailAddress", map);
 			return aquery.getResultList();
 		}
-		
+		@SuppressWarnings("unchecked")
+		@Override
 		public List<AccessRight> getAccessRight() {
 			// TODO Auto-generated method stub
 			final Query aquery =super.createQuery("select accessRight from AccessRight accessRight",null);
+			return aquery.getResultList();
+		}
+		@SuppressWarnings("unchecked")
+		@Override
+		public List<User> findUserList() {
+			// TODO Auto-generated method stub
+			final Query aquery =super.createQuery("select user from User user",null);
 			return aquery.getResultList();
 		}
 		

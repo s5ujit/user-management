@@ -2,6 +2,7 @@
 package com.appliedsni.entity;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -47,7 +48,7 @@ public abstract class PersistenceObject  implements Serializable{
      * 
      * @return the current value of the object identifier property.
      */
-    public abstract Long getId();
+    public abstract  Long getId();
 
     /**
      * Accessor of the {@code oldVersion} attribute. See {@link #oldVersion} attribute for more details on the

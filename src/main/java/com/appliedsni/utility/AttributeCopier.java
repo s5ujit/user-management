@@ -65,8 +65,8 @@ public final class AttributeCopier extends BeanUtils {
 
     }
 
-    private static boolean isCollection(final String pString) {
-        boolean isCollection = false;
+    private static Boolean isCollection(final String pString) {
+        Boolean isCollection = false;
         if ((pString.equalsIgnoreCase("java.util.List")) || (pString.equalsIgnoreCase("java.util.Set"))) {
             isCollection = true;
         }

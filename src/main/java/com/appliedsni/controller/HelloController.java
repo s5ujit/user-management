@@ -11,7 +11,7 @@ import com.appliedsni.entity.User;
 @RequestMapping("/rest/secure")
 public class HelloController {
 
-    @GetMapping(value="/hello/{id}")
+    @GetMapping(value="/hello/{idKey}")
     public   User hello() {
     	User user=new User();
 		user.setEmailAddress("sdfd");

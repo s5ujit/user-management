@@ -96,7 +96,7 @@ public abstract class BaseJpaDaoImpl  implements BaseJpaDao {
 
         }
         catch (final EntityNotFoundException aEntityNotFoundException) {
-            throw new DaoException();
+            throw new DaoException("entity does not exist");
         }
 
     }
@@ -119,7 +119,7 @@ public abstract class BaseJpaDaoImpl  implements BaseJpaDao {
                 pObject.getId());
         }
         catch (final EntityNotFoundException aEntityNotFoundException) {
-            throw new DaoException();
+            throw new DaoException("entity does not exist");
         }
         return (T) anObject;
     }
@@ -137,7 +137,7 @@ public abstract class BaseJpaDaoImpl  implements BaseJpaDao {
 
         if (pObject.getOldVersion() > pObject.getVersion()) {
 
-            throw new DaoException();
+            throw new DaoException("");
         }
         
         pObject.setVersion(pObject.getVersion() + 1);
@@ -165,7 +165,7 @@ public abstract class BaseJpaDaoImpl  implements BaseJpaDao {
                         .setVersion(thePersistenceObject.getVersion() + 1);
         }
         catch (final DaoException aException) {
-            throw new DaoException();
+            throw new DaoException("");
         }
         return (T) anObject;
 
@@ -176,7 +176,7 @@ public abstract class BaseJpaDaoImpl  implements BaseJpaDao {
 
         if (pObject.getOldVersion() > pObject.getVersion()) {
 
-            throw new DaoException();
+            throw new DaoException("");
         }
     }
     public <T extends PersistenceObject>  void merge(final T pObject) {
@@ -203,7 +203,7 @@ public abstract class BaseJpaDaoImpl  implements BaseJpaDao {
              pObject.getId());
      }
      catch (final EntityNotFoundException aEntityNotFoundException) {
-         throw new DaoException();
+         throw new DaoException("entity does not exist");
      }
      return (T) anObject;
  }

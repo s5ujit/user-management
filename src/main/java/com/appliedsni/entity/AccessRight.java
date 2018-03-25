@@ -17,19 +17,21 @@ import com.appliedsni.constants.Role;
 @Table(name="XACCESSRIGHT")
 public class AccessRight extends PersistenceObject implements Serializable {
 	@Id
-	@Column(name = "XOID", columnDefinition = "NUMBER(38)", nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_Sequence")
-	@SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
-	private Long id;
+     @GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "XID", columnDefinition = "NUMBER(38)", nullable = false)
+    private Long id;
+	
 	@Column(name="XREADACCESS")
-	private boolean  readAccess=true;
+	private Boolean  readAccess=true;
+	
 	@Column(name="XWRITEACESS")
-	private boolean writeAccess=false;
+	private Boolean writeAccess=false;
+	
 	@Column(name="XURL")
 	private String url;
-	@Enumerated(EnumType.STRING)
+	
 	@Column(name = "XROLE", length = 10, nullable = false)
-	private Role role;
+	private String role;
 
 	public AccessRight(){}
 	@Override
@@ -37,19 +39,19 @@ public class AccessRight extends PersistenceObject implements Serializable {
 		return this.id;
 	}
 
-	public boolean isReadAccess() {
+	public Boolean isReadAccess() {
 		return readAccess;
 	}
 
-	public void setReadAccess(boolean readAccess) {
+	public void setReadAccess(Boolean readAccess) {
 		this.readAccess = readAccess;
 	}
 
-	public boolean isWriteAccess() {
+	public Boolean isWriteAccess() {
 		return writeAccess;
 	}
 
-	public void setWriteAccess(boolean writeAccess) {
+	public void setWriteAccess(Boolean writeAccess) {
 		this.writeAccess = writeAccess;
 	}
 
@@ -61,11 +63,11 @@ public class AccessRight extends PersistenceObject implements Serializable {
 		this.url = url;
 	}
 
-	public Role getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 

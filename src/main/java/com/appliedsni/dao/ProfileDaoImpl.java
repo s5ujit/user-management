@@ -22,9 +22,8 @@ public class ProfileDaoImpl extends BaseJpaDaoImpl implements ProfileDao {
 	}
 
 	@Override
-	public Profile findByProfileId(Role pProfileId) {
+	public Profile findByProfileId(String pProfileId) {
 
-		// TODO Auto-generated method stub
 		Map<String,Object> map=new HashMap<>();
 		map.put("pProfileId", pProfileId);
 		final Query aquery =super.createQuery("select profile from Profile profile where profile.role = :pProfileId", map);

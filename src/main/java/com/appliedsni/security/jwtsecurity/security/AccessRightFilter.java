@@ -29,7 +29,7 @@ public class AccessRightFilter extends GenericFilterBean {
 		SecurityContextHolder.getContext().getAuthentication();
 		SimpleGrantedAuthority role= (SimpleGrantedAuthority) SecurityContextHolder.getContext().getAuthentication().getAuthorities().toArray()[0];
 		List<AccessRight> accessRightList = AsscessRightUtility.getAcessRightList().stream()
-				.filter(a -> a.getRole().name().equalsIgnoreCase(role.toString())
+				.filter(a -> a.getRole().equalsIgnoreCase(role.toString())
 						&& ((a.isReadAccess() && "GET".equalsIgnoreCase(httpRequest.getMethod())) || a.isWriteAccess()))
 				.collect(Collectors.toList());
 		AccessRight accessRight=null;

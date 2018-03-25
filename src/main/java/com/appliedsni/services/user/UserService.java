@@ -1,6 +1,8 @@
 package com.appliedsni.services.user;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import com.appliedsni.entity.User;
@@ -10,6 +12,8 @@ public interface UserService {
 	public User createUser(User pUserLoginRequest) throws Exception;
 	public void logout(User pUserLoginRequest)throws Exception;
 	void isVlaidSession(String pUserId,String pToken) throws Exception;
-	void deleteSession(String pUserId,String pToken)throws Exception;
+	public void deleteSession(String pUserId,String pToken)throws Exception;
+	public List<User> findUsers();
+	public User findUserByEmailId(String pEmailId);
 
 }

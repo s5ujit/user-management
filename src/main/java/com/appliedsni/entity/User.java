@@ -2,6 +2,8 @@ package com.appliedsni.entity;
 
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 
@@ -12,22 +14,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.UniqueConstraint;
 
 import com.appliedsni.entity.PersistenceObject;
 @Entity
-@Table(name = "XUSER")
+@Table(name = "XUSER",uniqueConstraints={@UniqueConstraint(columnNames={"XEMAILADDRESS","XMOBILENUMBER"})})
 public class User extends PersistenceObject implements Serializable{
     private static final long serialVersionUID = -1679970109556600138L;
 
     @Id
-    @Column(name = "XOID", columnDefinition = "NUMBER(38)", nullable = false)
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-	@SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
+     @GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "XID", columnDefinition = "NUMBER(38)", nullable = false)
     private Long id;
     
     @Column(name = "XEMAILADDRESS", length = 200, nullable = false)
@@ -43,74 +44,36 @@ public class User extends PersistenceObject implements Serializable{
     private String lastName;
     
     @Column(name = "XLOCKUSERINDICATOR", length = 1, nullable = false)
-    private boolean lockUserIndicator=true;
-
-    @Column(name = "XNUMBEROFLOGINS", length = 7, nullable = true)
-    private int numberOfLogins;
+    private Boolean lockUserIndicator=true;
 
 
     @Column(name = "XPASSWORDHASH", length = 40, nullable = true)
     private String passwordHash;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "XPROFILE_OID", referencedColumnName = "XOID", nullable = false)
+    @JoinColumn(name = "XPROFILE_OID", referencedColumnName = "XID", nullable = false)
     private Profile profile;
     
     @Column(name = "XMOBILENUMBER", length = 12, nullable = true)
     private String mobileNumber;
 
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="XUSERCOMPANYLINK",
+        joinColumns = {@JoinColumn(name="XUSER", referencedColumnName="XID")},
+        inverseJoinColumns = {@JoinColumn(name="XCOMPANY", referencedColumnName="XID")}
+    )
+    private List<Company> company;
+    
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="XUSER_PROJECT_LINK",
+        joinColumns = {@JoinColumn(name="XUSER", referencedColumnName="XID")},
+        inverseJoinColumns = {@JoinColumn(name="XPROJECT", referencedColumnName="XID")})
+    private List<Project> project;
+    
     public User() {
 
     }
-
-	public String getEmailAddress() {
-		return emailAddress;
-	}
-
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
-	}
-
-	public int getFailLoginAttempts() {
-		return failLoginAttempts;
-	}
-
-	public void setFailLoginAttempts(int failLoginAttempts) {
-		this.failLoginAttempts = failLoginAttempts;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public boolean isLockUserIndicator() {
-		return lockUserIndicator;
-	}
-
-	public void setLockUserIndicator(boolean lockUserIndicator) {
-		this.lockUserIndicator = lockUserIndicator;
-	}
-
-	public int getNumberOfLogins() {
-		return numberOfLogins;
-	}
-
-	public void setNumberOfLogins(int numberOfLogins) {
-		this.numberOfLogins = numberOfLogins;
-	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -119,28 +82,69 @@ public class User extends PersistenceObject implements Serializable{
 		this.id = id;
 	}
 
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+	public int getFailLoginAttempts() {
+		return failLoginAttempts;
+	}
+	public void setFailLoginAttempts(int failLoginAttempts) {
+		this.failLoginAttempts = failLoginAttempts;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public Boolean isLockUserIndicator() {
+		return lockUserIndicator;
+	}
+	public void setLockUserIndicator(Boolean lockUserIndicator) {
+		this.lockUserIndicator = lockUserIndicator;
+	}
+	
 	public String getPasswordHash() {
 		return passwordHash;
 	}
-
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
-
 	public Profile getProfile() {
 		return profile;
 	}
-
 	public void setProfile(Profile profile) {
 		this.profile = profile;
 	}
-
 	public String getMobileNumber() {
 		return mobileNumber;
 	}
-
 	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
+	}
+	
+	public List<Company> getCompany() {
+		return company;
+	}
+
+	public void setCompany(List<Company> company) {
+		this.company = company;
+	}
+
+	public List<Project> getProject() {
+		return project;
+	}
+	public void setProject(List<Project> project) {
+		this.project = project;
 	}
 
 	

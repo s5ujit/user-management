@@ -17,18 +17,19 @@ import javax.persistence.Table;
 @Table(name = "XUSERSESSION")
 public class UserSession extends PersistenceObject implements Serializable{
 	@Id
-    @Column(name = "XOID", columnDefinition = "NUMBER(38)", nullable = false)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
-	@SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ")
+     @GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "XID", columnDefinition = "NUMBER(38)", nullable = false)
     private Long id;
 	@Column(name = "XTOKEN", length = 1000, nullable = false)
 	private String token;
 	@Column(name = "USERID", length = 100, nullable = false)
 	private String userId;
-	public Long getId() {
-		return id;
-	}
 	
+	
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 	public String getToken() {
 		return token;
 	}
@@ -41,8 +42,17 @@ public class UserSession extends PersistenceObject implements Serializable{
 		this.userId=userId;
 		
 	}
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public UserSession()
 	{}
+
 	
 	
 
