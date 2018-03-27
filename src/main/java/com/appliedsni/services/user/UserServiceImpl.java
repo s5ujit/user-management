@@ -3,6 +3,7 @@ package com.appliedsni.services.user;
 import java.util.List;
 
 
+
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
@@ -13,8 +14,11 @@ import org.springframework.util.CollectionUtils;
 import com.appliedsni.dao.ProfileDao;
 import com.appliedsni.dao.TokenDao;
 import com.appliedsni.dao.UserDao;
+import com.appliedsni.entity.Company;
+import com.appliedsni.entity.Project;
 import com.appliedsni.entity.User;
 import com.appliedsni.entity.UserSession;
+import com.appliedsni.exception.DaoException;
 import com.appliedsni.utility.Crypto;
 @Service
 public class UserServiceImpl implements UserService {
@@ -89,5 +93,26 @@ public class UserServiceImpl implements UserService {
 		List<User> userList=userDao.findUserList();
 		return userList;
 	}
+	@Override
+	public List<Project> getProjectList(String pEmailId) {
+		// TODO Auto-generated method stub
+		List<User> user = userDao.findUserByEmail(pEmailId);
+		return user.get(0).getProject();
+	}
+	@Override
+	public List<Company> getCompanyList(String pEmailId) {
+		// TODO Auto-generated method stub
+		List<User> user = userDao.findUserByEmail(pEmailId);
+		return user.get(0).getCompany();
+	}
+	@Override
+	public void updateUser(User pUser) throws DaoException {
+		// TODO Auto-generated method stub
+		User user=userDao.findbyPK(pUser);
+		
+		
+		
+	}
+	
 
 }

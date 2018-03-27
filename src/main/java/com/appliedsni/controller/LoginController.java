@@ -21,6 +21,8 @@ public class LoginController {
 
 	@PostMapping(value = ServerUrl.login)
 	public @ResponseBody User login(@RequestBody final User pUserRequest,HttpServletResponse response) throws Exception {
+	
+		System.out.println("test  1");
 		User user = userService.loginUser(pUserRequest, response);
 		
 		return user;
@@ -31,6 +33,10 @@ public class LoginController {
 		
 		 userService.deleteSession(pUserLoginRequest.getEmailAddress(),"");
 	}
-	
+	@PostMapping(value = ServerUrl.createUser)
+	public @ResponseBody User createUser(@RequestBody final User pUserLoginRequest) throws Exception {
+		User userLoginResponse = userService.createUser(pUserLoginRequest);
+		return userLoginResponse;
+	}
 	
 }

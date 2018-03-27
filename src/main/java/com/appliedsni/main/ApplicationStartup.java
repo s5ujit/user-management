@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import com.appliedsni.dao.UserDao;
+import com.appliedsni.entity.AccessRight;
 import com.appliedsni.utility.AsscessRightUtility;
 
 @Component
@@ -22,7 +23,9 @@ implements ApplicationListener<ApplicationReadyEvent> {
   public void onApplicationEvent(final ApplicationReadyEvent event) {
  
 	  AsscessRightUtility.setAcessRightList(userDao.getAccessRight());
-		 
+	  System.out.println("===============================");
+		 for(AccessRight asscess:AsscessRightUtility.getAcessRightList())
+			 System.out.println(asscess.getUrl());
   }
  
 }

@@ -25,12 +25,12 @@ public class AccessRight extends PersistenceObject implements Serializable {
 	private Boolean  readAccess=true;
 	
 	@Column(name="XWRITEACESS")
-	private Boolean writeAccess=false;
+	private Boolean writeAccess=true;
 	
 	@Column(name="XURL")
 	private String url;
 	
-	@Column(name = "XROLE", length = 10, nullable = false)
+	@Column(name = "XROLE", length = 10, nullable = true)
 	private String role;
 
 	public AccessRight(){}

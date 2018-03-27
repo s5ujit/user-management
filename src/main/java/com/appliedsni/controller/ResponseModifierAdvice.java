@@ -41,7 +41,8 @@ public class ResponseModifierAdvice extends ResponseEntityExceptionHandler imple
 	public ResponseEntity<ResponseObject> processRuntimeException(HttpServletRequest req, RuntimeException ex)
 			throws Exception {
 		ResponseObject p = new ResponseObject();
-		p.setObject("dcdced");
+		p.setObject("exception");
+		ex.printStackTrace();
 		return new ResponseEntity<ResponseObject>(p, HttpStatus.valueOf(HttpStatus.EXPECTATION_FAILED.value()));
 	}
 }
