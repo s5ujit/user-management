@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.appliedsni.entity.UserSession;
 import com.appliedsni.exception.DaoException;
 
-@Service
+@Repository
 public class TokenDaoImpl extends BaseJpaDaoImpl implements TokenDao {
 
 	@Override

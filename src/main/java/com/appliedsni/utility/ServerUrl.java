@@ -1,18 +1,20 @@
 package com.appliedsni.utility;
 
 public final class ServerUrl {
-	public final static String rootUrl = "/rest/secure";
-	public final static String login = "/login";
-	public final static String logout = "/secure/logout";
-	public final static String createUser = "/createUser";
-	public final static String updateUser = "/updateUser";
-	public final static String usersList = "/usersList";
-	public final static String userById = "/user/{id}";
-	public final static String userCompanyList = "/user/companyList";
-	public final static String companyById = "/compnay/{id}";
-	public final static String projectList = "/user/projectList";
-	public final static String projectById = "/project/{id}";
-	public final static String projectByCompany = "/compnay/{comapnyId}/projectList/{projectId}";
-	public final static String companyList = "/companyList";
+	public final static String ROOT_URL = "/rest/secure";
+	public final static String LOGIN = "/login";
+	public final static String LOGOUT = "/secure/logout";
+	
+	public final static String USERS = "/users";
+	public final static String USER = "/user/{id}";
+	public final static String USER_COMPANYS = "/user/{id}/companys";
+	public final static String USER_PROJECTS = "/user/{id}/projects";
+	
+	public final static String COMPANY_BY_ID = "/company/{id}";
+	public final static String COMPANY = "/compnay";
+	public final static String COMPANY_PROJECTS = "/compnay/{comapnyId}/projects";
+	public final static String COMPANYS = "/companys";
+	
+	public final static String PROJECT = "/project/{id}";
 
 }

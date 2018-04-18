@@ -37,13 +37,6 @@ public class Company extends PersistenceObject implements Serializable {
 	
 	@Column(name = "XSTATUS")
 	private Boolean status;
-	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "XCOMPANY", referencedColumnName = "XID")
-	private List<Project> project;
-	
-	 @ManyToMany(cascade=CascadeType.ALL, mappedBy="company")  
-	 public transient Set<User> user;
 	 
 	public Company() {
 	}
@@ -87,20 +80,21 @@ public class Company extends PersistenceObject implements Serializable {
 		this.status = status;
 	}
 
-	public List<Project> getProject() {
-		return project;
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Company))
+			return false;
+		if (obj == this)
+			return true;
+		Company com = (Company) obj;
+		return this.getName().equals(com.getName());
 	}
-
-	public void setProject(List<Project> project) {
-		this.project = project;
+	@Override
+	public int hashCode() {
+		return name.hashCode();
 	}
-
-	public Set<User> getUser() {
-		return user;
-	}
-
-	public void setUser(Set<User> user) {
-		this.user = user;
-	}
+	
 
 }

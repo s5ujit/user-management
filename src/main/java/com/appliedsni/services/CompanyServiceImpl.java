@@ -1,6 +1,8 @@
-package com.appliedsni.services.user;
+package com.appliedsni.services;
 
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,17 +11,15 @@ import com.appliedsni.dao.CompanyDao;
 import com.appliedsni.entity.Company;
 import com.appliedsni.entity.Project;
 import com.appliedsni.exception.DaoException;
+import com.appliedsni.request.validator.CompanyRequestValidator;
 @Service
 public class CompanyServiceImpl implements CompanyService {
 	@Autowired
 	CompanyDao companyDao;
+	@Autowired
+	CompanyRequestValidator companyRequestValidator;
 
-	@Override
-	public List<Company> findCompany(String pUser) {
-		// TODO Auto-generated method stub
-		return companyDao.findCompany(pUser);
-		 
-	}
+
 
 	@Override
 	public Company findCompanyById(long id) throws DaoException {
@@ -29,19 +29,22 @@ public class CompanyServiceImpl implements CompanyService {
 		return companyDao.findbyPK(company);
 	}
 
-	@Override
-	public Project findProjectById(long id) throws DaoException {
-		// TODO Auto-generated method stub
-		Project project=new Project();
-		project.setId(id);
-		return companyDao.findbyPK(project);
-	}
 
 	@Override
-	public List<Project> findProjectByCompany(long comapnyId) {
+	@Transactional
+	public Company createCompany(Company pCompany) throws Exception {
 		// TODO Auto-generated method stub
-		companyDao.findProjectByCompany(comapnyId);
-		return null;
+		companyRequestValidator.createCompanyValidate(pCompany);
+		companyDao.create(pCompany);
+		return pCompany;
+	}
+
+
+	@Override
+	public List<Company> companyList() {
+		// TODO Auto-generated method stub
+		return companyDao.companyList();
+		 
 	}
 	
 	

@@ -36,29 +36,18 @@ public class Profile extends PersistenceObject implements Serializable{
     
     @Column(name = "XPROFILEDESCRIPTION", length = 64, nullable = false)
     private String profileDescription;
-    
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "XPROFILE_OID", referencedColumnName = "XID")
-    private transient List<User> users;
- 
 
     public Profile() {
 
     }
 
-	
-
 	public Long getId() {
 		return id;
 	}
 
-
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
 
 	public String getProfileDescription() {
 		return profileDescription;
@@ -76,13 +65,6 @@ public class Profile extends PersistenceObject implements Serializable{
 		this.role = role;
 	}
 
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
 	 public String toString() {
 	        return this.role;
 	    }

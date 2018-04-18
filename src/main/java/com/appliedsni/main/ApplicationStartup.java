@@ -23,9 +23,6 @@ implements ApplicationListener<ApplicationReadyEvent> {
   public void onApplicationEvent(final ApplicationReadyEvent event) {
  
 	  AsscessRightUtility.setAcessRightList(userDao.getAccessRight());
-	  System.out.println("===============================");
-		 for(AccessRight asscess:AsscessRightUtility.getAcessRightList())
-			 System.out.println(asscess.getUrl());
   }
  
 }

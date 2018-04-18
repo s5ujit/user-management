@@ -28,7 +28,6 @@ public class JwtValidator {
                     .getBody();
 
             jwtUser = new JwtUser();
-
             jwtUser.setUserName(body.getSubject());
             jwtUser.setId((String)body.get("userId"));
             jwtUser.setRole((String) body.get("role"));
@@ -36,7 +35,7 @@ public class JwtValidator {
         catch (UnsupportedJwtException | MalformedJwtException | IllegalArgumentException | SignatureException ex) {
             throw new BadCredentialsException("Invalid JWT token: ", ex);
         } catch (ExpiredJwtException expiredEx) {
-            throw new Exception("JWT Token is expired");
+            throw new Exception(" Token is expired");
         }
 
         return jwtUser;

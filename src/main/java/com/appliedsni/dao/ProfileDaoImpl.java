@@ -6,13 +6,14 @@ import java.util.Map;
 
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.appliedsni.constants.Role;
 import com.appliedsni.entity.PersistenceObject;
 import com.appliedsni.entity.Profile;
 import com.appliedsni.exception.DaoException;
-@Service
+@Repository
 public class ProfileDaoImpl extends BaseJpaDaoImpl implements ProfileDao {
 
 	@Override

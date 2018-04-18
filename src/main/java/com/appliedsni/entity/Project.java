@@ -26,9 +26,6 @@ public class Project extends PersistenceObject implements Serializable {
 
 	@Column(name = "XNAME", nullable = false)
 	private String name;
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "XUSER", referencedColumnName = "XID")
-	private List<User> user;
 	@Column(name = "XEMAIL", nullable = true)
 	private String Email;
 	@Column(name = "XPHONE", nullable = true)
@@ -58,12 +55,6 @@ public class Project extends PersistenceObject implements Serializable {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public List<User> getUser() {
-		return user;
-	}
-	public void setUser(List<User> user) {
-		this.user = user;
 	}
 	public String getEmail() {
 		return Email;
@@ -104,7 +95,22 @@ public class Project extends PersistenceObject implements Serializable {
 		this.company = company;
 	}
 	
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Company))
+			return false;
+		if (obj == this)
+			return true;
+		Company com = (Company) obj;
+		return this.getName().equals(com.getName());
+	}
+	@Override
+	public int hashCode() {
+		return name.hashCode();
+	}
 	
 
 }

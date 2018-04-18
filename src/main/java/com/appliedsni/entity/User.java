@@ -3,6 +3,7 @@ package com.appliedsni.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -58,17 +59,17 @@ public class User extends PersistenceObject implements Serializable{
     private String mobileNumber;
 
     @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="XUSERCOMPANYLINK",
+    @JoinTable(name="XUSER_COMPANYLINK",
         joinColumns = {@JoinColumn(name="XUSER", referencedColumnName="XID")},
         inverseJoinColumns = {@JoinColumn(name="XCOMPANY", referencedColumnName="XID")}
     )
-    private List<Company> company;
+    private Set<Company> company;
     
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name="XUSER_PROJECT_LINK",
         joinColumns = {@JoinColumn(name="XUSER", referencedColumnName="XID")},
         inverseJoinColumns = {@JoinColumn(name="XPROJECT", referencedColumnName="XID")})
-    private List<Project> project;
+    private Set<Project> project;
     
     public User() {
 
@@ -132,18 +133,18 @@ public class User extends PersistenceObject implements Serializable{
 		this.mobileNumber = mobileNumber;
 	}
 	
-	public List<Company> getCompany() {
+	public Set<Company> getCompany() {
 		return company;
 	}
 
-	public void setCompany(List<Company> company) {
+	public void setCompany(Set<Company> company) {
 		this.company = company;
 	}
 
-	public List<Project> getProject() {
+	public Set<Project> getProject() {
 		return project;
 	}
-	public void setProject(List<Project> project) {
+	public void setProject(Set<Project> project) {
 		this.project = project;
 	}
 
