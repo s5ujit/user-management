@@ -30,7 +30,7 @@ public class UserController {
 	UserService userService;
 
 	@GetMapping(value = ServerUrl.USERS)
-	public List<User> test() throws Exception {
+	public List<User> findUserList() throws Exception {
 		List<User> userList = userService.findUsers();
 		return userList;
 	}
