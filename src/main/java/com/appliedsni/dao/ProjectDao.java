@@ -6,7 +6,7 @@ import com.appliedsni.entity.Project;
 import com.appliedsni.exception.DaoException;
 
 public interface ProjectDao  extends BaseJpaDao {
-	public List<Project> findProjectByCompany( long pComapnyId) ;
 
 	Project findProjectById(long pId) throws DaoException;
+	List<Project> findCompanyProjects(Long pId) throws DaoException;
 }

@@ -3,12 +3,17 @@ package com.appliedsni.utility;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.Assert;
 
+import com.appliedsni.controller.ResponseModifierAdvice;
+
 
 public final class AttributeCopier extends BeanUtils {
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(AttributeCopier.class);
   
     private AttributeCopier() {
 
@@ -54,13 +59,13 @@ public final class AttributeCopier extends BeanUtils {
             }
         }
         catch (final IllegalArgumentException pIllegalArgumentException) {
-        	pIllegalArgumentException.printStackTrace();
+        	LOGGER.debug(pIllegalArgumentException.getStackTrace().toString());
         }
         catch (final IllegalAccessException pIllegalAccessException) {
-        	pIllegalAccessException.printStackTrace();
+        	LOGGER.debug(pIllegalAccessException.getStackTrace().toString());
         }
         catch (final InvocationTargetException pInvocationTargetException) {
-        	pInvocationTargetException.printStackTrace();
+        	LOGGER.debug(pInvocationTargetException.getStackTrace().toString());
         }
 
     }

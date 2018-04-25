@@ -39,7 +39,7 @@ public class UserController {
     public User getUser(@PathVariable("id") long id) throws UserException, DaoException {
         User user = userService.findById(id);
         if (user == null) {
-            throw new UserException("Usr Not Found"); 
+            throw new UserException("User Not Found"); 
         }
         return null;
     }

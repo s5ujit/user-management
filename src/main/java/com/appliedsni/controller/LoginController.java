@@ -44,7 +44,7 @@ public class LoginController {
 		 String header = request.getHeader("Authorisation");
 		 userService.deleteSession(pUserLoginRequest.getEmailAddress(),header);
 	}
-	@PostMapping(value = ServerUrl.USER)
+	@PostMapping(value = ServerUrl.CREATE_USERS)
 	public @ResponseBody User createUser(@RequestBody final User pUserLoginRequest) throws Exception {
 		User userLoginResponse = userService.createUser(pUserLoginRequest);
 		return userLoginResponse;

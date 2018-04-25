@@ -1,5 +1,7 @@
 package com.appliedsni.security.jwtsecurity.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,7 +19,7 @@ import java.util.List;
 
 @Component
 public class JwtAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationProvider.class);
     @Autowired
     private JwtValidator validator;
     @Autowired
@@ -40,7 +42,8 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 			userService.isVlaidSession(jwtUser.getUserName(), token);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			LOGGER.debug(e.getStackTrace().toString());
 		}
 
         if (jwtUser == null) {

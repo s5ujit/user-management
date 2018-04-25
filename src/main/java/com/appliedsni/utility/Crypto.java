@@ -4,9 +4,13 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.appliedsni.controller.ResponseModifierAdvice;
 
 public final class Crypto {
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(Crypto.class);
 	/**
 	 * Utility class - Not for instantiation.
 	 */
@@ -37,7 +41,7 @@ public final class Crypto {
             return new String(Base64.encodeBase64(encrypted));
         }
         catch (Exception ex) {
-            ex.printStackTrace();
+        	LOGGER.debug(ex.getStackTrace().toString());
         }
         return "";
     }
@@ -59,7 +63,7 @@ public final class Crypto {
             return new String(original);
         }
         catch (Exception ex) {
-        	ex.printStackTrace();
+        	LOGGER.debug(ex.getStackTrace().toString());
         }
         return "";
     }

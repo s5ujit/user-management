@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService {
 			
 			String token=jwtGenerator.generate(aUser);
 			response.setHeader("Authorisation", token);
+			//response.addHeader("Authorisation", token);
 			UserSession userSession=new UserSession(token,aUser.getEmailAddress());
 			userDao.create(userSession);
 		}

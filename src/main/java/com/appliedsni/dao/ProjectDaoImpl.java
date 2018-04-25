@@ -15,15 +15,6 @@ import com.appliedsni.exception.DaoException;
 public class ProjectDaoImpl extends BaseJpaDaoImpl implements ProjectDao {
    
 	ProjectDao projectDao;
-	public List<Project> findProjectByCompany(long pComapnyId) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("pComapnyId", pComapnyId);
-		final Query aquery = super.createQuery("select project from Project project where project.company.id = :pComapnyId",
-				map);
-		List<Project> li = aquery.getResultList();
-		return li;
-
-	}
 
 	@Override
 	public <T> T findChildbyPK(T pObject, long pOid) throws DaoException {
@@ -37,6 +28,17 @@ public class ProjectDaoImpl extends BaseJpaDaoImpl implements ProjectDao {
 		Project project=new Project();
 		project.setId(pId);
 		return projectDao.findbyPK(project);
+	}
+
+	@Override
+	public List<Project> findCompanyProjects(Long pComapnyId) throws DaoException {
+		Map<String, Object> map = new HashMap<>();
+		map.put("pComapnyId", pComapnyId);
+		final Query aquery = super.createQuery("select project from Project project where project.company.id = :pComapnyId",
+				map);
+		List<Project> projectList = aquery.getResultList();
+		return projectList;
+
 	}
 
 }

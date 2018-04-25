@@ -17,25 +17,18 @@ import com.appliedsni.entity.User;
 public class JwtGenerator {
 
 
-    public String generate(User pUserDto) {
+	public String generate(User pUserDto) {
 
-        Claims claims = Jwts.claims()
-                .setSubject(pUserDto.getEmailAddress());
-        claims.put("userId", String.valueOf(pUserDto.getEmailAddress()));
-        claims.put("role", pUserDto.getProfile().toString());
-        LocalDateTime currentTime = LocalDateTime.now();
-        String token = Jwts.builder()
-          .setClaims(claims)
-          .setIssuer("")
-          .setIssuedAt(Date.from(currentTime.atZone(ZoneId.systemDefault()).toInstant()))
-          .setExpiration(Date.from(currentTime
-              .plusMinutes(100)
-              .atZone(ZoneId.systemDefault()).toInstant()))
-          .signWith(SignatureAlgorithm.HS512, "youtube")
-        .compact();
-        
-        return token;
-        
-        
-    }
+		Claims claims = Jwts.claims().setSubject(pUserDto.getEmailAddress());
+		claims.put("userId", String.valueOf(pUserDto.getEmailAddress()));
+		claims.put("role", pUserDto.getProfile().toString());
+		LocalDateTime currentTime = LocalDateTime.now();
+		String token = Jwts.builder().setClaims(claims).setIssuer("")
+				.setIssuedAt(Date.from(currentTime.atZone(ZoneId.systemDefault()).toInstant()))
+				.setExpiration(Date.from(currentTime.plusDays(30).atZone(ZoneId.systemDefault()).toInstant()))
+				.signWith(SignatureAlgorithm.HS512, "youtube").compact();
+
+		return token;
+
+	}
 }

@@ -15,10 +15,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.appliedsni.dto.ResponseObject;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 @ControllerAdvice
 public class ResponseModifierAdvice extends ResponseEntityExceptionHandler implements ResponseBodyAdvice<Object> {
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(ResponseModifierAdvice.class);
 	@Override
 	public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
 		// TODO Auto-generated method stub
@@ -33,6 +34,7 @@ public class ResponseModifierAdvice extends ResponseEntityExceptionHandler imple
 
 		ResponseObject responseObject = new ResponseObject();
 		responseObject.setObject(body);
+		responseObject.setStatus("Success");
 		return responseObject;
 
 	}
@@ -40,9 +42,11 @@ public class ResponseModifierAdvice extends ResponseEntityExceptionHandler imple
 	@ExceptionHandler(RuntimeException.class)
 	public ResponseEntity<ResponseObject> processRuntimeException(HttpServletRequest req, RuntimeException ex)
 			throws Exception {
-		ResponseObject p = new ResponseObject();
-		p.setObject("exception");
-		ex.printStackTrace();
-		return new ResponseEntity<ResponseObject>(p, HttpStatus.valueOf(HttpStatus.EXPECTATION_FAILED.value()));
+		ResponseObject responseObject = new ResponseObject();
+		responseObject.setObject("exception");
+		responseObject.setStatus("Fail");
+		responseObject.setExceptionMessage(ex.getLocalizedMessage());
+		LOGGER.debug(ex.getStackTrace().toString());
+		return new ResponseEntity<ResponseObject>(responseObject, HttpStatus.valueOf(HttpStatus.EXPECTATION_FAILED.value()));
 	}
 }
