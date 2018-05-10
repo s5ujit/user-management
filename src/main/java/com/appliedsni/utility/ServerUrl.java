@@ -15,5 +15,7 @@ public final class ServerUrl {
 	public final static String COMPANY_PROJECTS = "/company/{companyId}/projects";
 	public final static String COMPANYS = "/companys";
 	public final static String PROJECT = "/project/{id}";
+	public final static String PROJECTS = "/project";
+	public final static String REPORTS = "/report";
 
 }
